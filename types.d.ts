@@ -75,3 +75,16 @@ export interface MoveResponse {
   move: string;
   shout?: string;
 }
+
+export interface ScoredMove {
+  direction: string;
+  score: number;
+}
+
+export interface ScoredMoves {
+  left: ScoredMove;
+  right: ScoredMove;
+  up: ScoredMove;
+  down: ScoredMove;
+}
+
