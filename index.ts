@@ -15,6 +15,12 @@ import runServer from './server';
 import { SnakeBrain } from './snakeBrain';
 import { GameState, InfoResponse, MoveResponse } from './types';
 
+import { DatabaseAPI } from './database';
+
+const database = new DatabaseAPI();
+database.db;
+database.createTable();
+
 // info is called when you create your Battlesnake on play.battlesnake.com
 // and controls your Battlesnake's appearance
 // TIP: If you open your Battlesnake URL in a browser you should see this data
@@ -45,6 +51,7 @@ function end(gameState: GameState): void {
 // See https://docs.battlesnake.com/api/example-move for available data
 function move(gameState: GameState): MoveResponse {
 
+
   const me = new SnakeBrain(gameState.you);
 
   AvoidNeck(me.snake, me.scoredMoves);
@@ -53,6 +60,9 @@ function move(gameState: GameState): MoveResponse {
   const nextMove = getHighScoreMove(me.scoredMoves)
 
   console.log(`MOVE ${gameState.turn}: ${nextMove}`)
+
+  database.updateData(gameState, me.scoredMoves, nextMove);
+
   return { move: nextMove };
 }
 
@@ -62,3 +72,4 @@ runServer({
   move: move,
   end: end
 });
+
