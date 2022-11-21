@@ -29,19 +29,19 @@ export const AvoidNeck = (snake: Battlesnake, scoredMoves: ScoredMoves) => {
 
     if (neck.x < head.x) {        // Neck is left of head, don't move left
         scoredMoves.left.score -= 1000000;
-      }
-    
-      if (neck.x > head.x) { // Neck is right of head, don't move right
-        scoredMoves.right.score -= 1000000;
-      }
-    
-      if (neck.y < head.y) { // Neck is below head, don't move down
-        scoredMoves.down.score -= 1000000;
-      }
-    
-      if (neck.y > head.y) { // Neck is above head, don't move up
-        scoredMoves.up.score -= 1000000;
-      }
+    }
+
+    if (neck.x > head.x) { // Neck is right of head, don't move right
+    scoredMoves.right.score -= 1000000;
+    }
+
+    if (neck.y < head.y) { // Neck is below head, don't move down
+    scoredMoves.down.score -= 1000000;
+    }
+
+    if (neck.y > head.y) { // Neck is above head, don't move up
+    scoredMoves.up.score -= 1000000;
+    }
 }
 
 export const AvoidWalls = (gameState: GameState, snake: Battlesnake, scoredMoves: ScoredMoves) => {

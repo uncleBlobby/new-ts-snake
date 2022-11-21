@@ -16,6 +16,7 @@ import { SnakeBrain } from './snakeBrain';
 import { GameState, InfoResponse, MoveResponse } from './types';
 
 import { DatabaseAPI } from './database';
+import { NodeMap } from './nodeMap';
 
 const database = new DatabaseAPI();
 database.db;
@@ -38,12 +39,12 @@ function info(): InfoResponse {
 
 // start is called when your Battlesnake begins a game
 function start(gameState: GameState): void {
-  console.log("GAME START");
+  console.log(`${gameState.game.id} GAME START`);
 }
 
 // end is called when your Battlesnake finishes a game
 function end(gameState: GameState): void {
-  console.log("GAME OVER\n");
+  console.log(`${gameState.game.id} GAME OVER\n`);
 }
 
 // move is called on every turn and returns your next move
@@ -54,8 +55,20 @@ function move(gameState: GameState): MoveResponse {
 
   const me = new SnakeBrain(gameState.you);
 
-  AvoidNeck(me.snake, me.scoredMoves);
-  AvoidWalls(gameState, me.snake, me.scoredMoves);
+  const nm = new NodeMap();
+
+  nm.init(gameState);
+  nm.fillSnakes(gameState);
+  nm.fillFood(gameState);
+  nm.fillHaz(gameState);
+  nm.log();
+
+
+  me.AvoidNeck();
+  me.AvoidWalls(gameState);
+  me.AvoidOwnBody();
+  me.PreferTowardClosestFood(gameState);
+  me.PreferTowardOwnTail(gameState);
 
   const nextMove = getHighScoreMove(me.scoredMoves)
 

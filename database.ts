@@ -11,7 +11,7 @@ export class DatabaseAPI {
     })
 
     createTable = () => {
-        this.db.run('DROP TABLE games')
+        //this.db.run('DROP TABLE games')
         this.db.run('CREATE TABLE IF NOT EXISTS games(gameId text not null, turn text not null, gameState text not null, scoredMoves text not null, responseMove text not null)')
     }
 

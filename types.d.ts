@@ -88,3 +88,20 @@ export interface ScoredMoves {
   down: ScoredMove;
 }
 
+export const enum FCoordStatus {
+  EMPTY,
+  SNAKE,
+  FOOD,
+  HAZARD
+}
+
+export interface FCoord {
+  coord: Coord;
+  status: FCoordStatus;
+  checkedFromLeft: boolean;
+  checkedFromRight: boolean;
+  checkedFromUp: boolean;
+  checkedFromDown: boolean;
+
+}
+
