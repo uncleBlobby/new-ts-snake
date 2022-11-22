@@ -188,6 +188,48 @@ export const CountOpenNodes = (gs: GameState, sb: SnakeBrain, nm: NodeMap) => {
     console.log(`new flood clearanceRight: ${clearanceRight}`)
     console.log(`new flood clearanceDown: ${clearanceBottom}`)
     console.log(`new flood clearanceUp: ${clearanceTop}`)
+
+    const maxClearance = Math.max(clearanceLeft, clearanceRight, clearanceTop, clearanceBottom);
+
+    if (clearanceLeft < sb.snake.body.length){
+        console.log(`Left Clearance is less than body length!`);
+        sb.scoredMoves.left.score -= 50;
+        if(clearanceLeft == maxClearance){
+            console.log(`Left is still the max clearance! Go Left?`);
+            sb.scoredMoves.left.score += 50;
+        }
+        //clearanceLeft = 0;
+    }
+
+    if (clearanceRight < sb.snake.body.length){
+        console.log(`Right Clearance is less than body length!`);
+        sb.scoredMoves.right.score -= 50;
+        //clearanceRight = 0;
+        if(clearanceRight == maxClearance){
+            console.log(`Right is still the max clearance! Go Right?`);
+            sb.scoredMoves.right.score += 50;
+        }
+    }
+
+    if (clearanceTop < sb.snake.body.length){
+        console.log(`Up Clearance is less than body length!`);
+        sb.scoredMoves.up.score -= 50;
+        //clearanceTop = 0;
+        if(clearanceTop == maxClearance){
+            console.log('Top is still the max clearance, go top!');
+            sb.scoredMoves.up.score += 50;
+        }
+    }
+
+    if (clearanceBottom < sb.snake.body.length){
+        console.log(`Down Clearance is less than body length!`);
+        sb.scoredMoves.down.score -= 50;
+        //clearanceBottom =0;
+        if(clearanceBottom == maxClearance){
+            console.log('Bottom is still max Clearance, go bottom!');
+            sb.scoredMoves.down.score += 50;
+        }
+    }
     
 
     sb.scoredMoves.left.score += clearanceLeft;

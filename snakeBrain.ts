@@ -154,19 +154,20 @@ export class SnakeBrain {
     PreferTowardClosestFood = (gs: GameState) => {
         const closestFoodCoord = this.GetClosestFoodCoord(gs);
         const head = this.head();
+        const healthRatio = 100 - this.snake.health;
 
         switch(this.GetGeneralDirectionToCoord(closestFoodCoord)){
             case "right":
-                this.scoredMoves.right.score += 10;
+                this.scoredMoves.right.score += Math.max(20, healthRatio);
                 break;
               case "left":
-                this.scoredMoves.left.score += 10;
+                this.scoredMoves.left.score += Math.max(20, healthRatio);
                 break;
               case "up":
-                this.scoredMoves.up.score += 10;
+                this.scoredMoves.up.score += Math.max(20, healthRatio);
                 break;
               case "down":
-                this.scoredMoves.down.score += 10;
+                this.scoredMoves.down.score += Math.max(20, healthRatio);
                 break;
               default:
                 break;    
