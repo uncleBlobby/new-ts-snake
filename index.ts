@@ -16,7 +16,7 @@ import { SnakeBrain } from './snakeBrain';
 import { GameState, InfoResponse, MoveResponse } from './types';
 
 import { DatabaseAPI } from './database';
-import { NodeMap } from './nodeMap';
+import { CountOpenNodes, NodeMap } from './nodeMap';
 
 const database = new DatabaseAPI();
 database.db;
@@ -61,7 +61,7 @@ function move(gameState: GameState): MoveResponse {
   nm.fillSnakes(gameState);
   nm.fillFood(gameState);
   nm.fillHaz(gameState);
-  nm.log();
+  //console.log(nm);
 
 
   me.AvoidNeck();
@@ -70,6 +70,8 @@ function move(gameState: GameState): MoveResponse {
   me.PreferTowardClosestFood(gameState);
   me.PreferTowardOwnTail(gameState);
 
+  CountOpenNodes(gameState, me, nm);
+  console.log(me.scoredMoves);
   const nextMove = getHighScoreMove(me.scoredMoves)
 
   console.log(`MOVE ${gameState.turn}: ${nextMove}`)
