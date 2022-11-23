@@ -105,3 +105,10 @@ export interface FCoord {
 
 }
 
+export interface Clearance {
+  left: number;
+  right: number;
+  down: number;
+  up: number;
+}
+

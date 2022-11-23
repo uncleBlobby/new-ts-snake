@@ -1,5 +1,5 @@
 import { SnakeBrain } from "./snakeBrain";
-import { GameState, Coord, FCoord, FCoordStatus } from "./types";
+import { GameState, Coord, FCoord, FCoordStatus, Clearance } from "./types";
 
 export class NodeMap {
     nodeMap: Map<string, FCoord>;
@@ -102,6 +102,20 @@ export const CountOpenNodes = (gs: GameState, sb: SnakeBrain, nm: NodeMap) => {
             for (let j = head.y + 1; j < gs.board.height; j++){
                 if(!CheckIfNodeIsSnake(nm, {x: i, y: j})){
                     clearanceLeft++
+                    for(let k = i; k < gs.board.width; k++){
+                        if(!CheckIfNodeIsSnake(nm, {x: k, y: j})){
+                            clearanceLeft++;
+                        } else {
+                            break;
+                        }
+                    }
+                    for(let k = i; k > 0; k--){
+                        if(!CheckIfNodeIsSnake(nm, {x: k, y: j})){
+                            clearanceLeft++;
+                        } else {
+                            break;
+                        }
+                    }
                 } else {
                     break;
                 }
@@ -109,6 +123,20 @@ export const CountOpenNodes = (gs: GameState, sb: SnakeBrain, nm: NodeMap) => {
             for (let j = head.y - 1 ; j >= 0; j--){
                 if(!CheckIfNodeIsSnake(nm, {x: i, y: j})){
                     clearanceLeft++
+                    for(let k = i; k < gs.board.width; k++){
+                        if(!CheckIfNodeIsSnake(nm, {x: k, y: j})){
+                            clearanceLeft++;
+                        } else {
+                            break;
+                        }
+                    }
+                    for(let k = i; k > 0; k--){
+                        if(!CheckIfNodeIsSnake(nm, {x: k, y: j})){
+                            clearanceLeft++;
+                        } else {
+                            break;
+                        }
+                    }
                 } else {
                     break;
                 }
@@ -124,6 +152,20 @@ export const CountOpenNodes = (gs: GameState, sb: SnakeBrain, nm: NodeMap) => {
             for (let j = head.y + 1; j < gs.board.height; j++){
                 if(!CheckIfNodeIsSnake(nm, {x: i, y: j})){
                     clearanceRight++
+                    for(let k = i; k < gs.board.width; k++){
+                        if(!CheckIfNodeIsSnake(nm, {x: k, y: j})){
+                            clearanceRight++;
+                        } else {
+                            break;
+                        }
+                    }
+                    for(let k = i; k > 0; k--){
+                        if(!CheckIfNodeIsSnake(nm, {x: k, y: j})){
+                            clearanceRight++;
+                        } else {
+                            break;
+                        }
+                    }
                 } else {
                     break;
                 }
@@ -131,6 +173,20 @@ export const CountOpenNodes = (gs: GameState, sb: SnakeBrain, nm: NodeMap) => {
             for (let j = head.y - 1; j >= 0; j--){
                 if(!CheckIfNodeIsSnake(nm, {x: i, y: j})){
                     clearanceRight++
+                    for(let k = i; k < gs.board.width; k++){
+                        if(!CheckIfNodeIsSnake(nm, {x: k, y: j})){
+                            clearanceRight++;
+                        } else {
+                            break;
+                        }
+                    }
+                    for(let k = i; k > 0; k--){
+                        if(!CheckIfNodeIsSnake(nm, {x: k, y: j})){
+                            clearanceRight++;
+                        } else {
+                            break;
+                        }
+                    }
                 } else {
                     break;
                 }
@@ -146,6 +202,20 @@ export const CountOpenNodes = (gs: GameState, sb: SnakeBrain, nm: NodeMap) => {
             for (let j = head.x; j < gs.board.width; j++){
                 if(!CheckIfNodeIsSnake(nm, {x: j, y: i})){
                     clearanceBottom++;
+                    for(let k = i; k < gs.board.height; k++){
+                        if(!CheckIfNodeIsSnake(nm, {x: j, y: k})){
+                            clearanceBottom++;
+                        } else {
+                            break;
+                        }
+                    }
+                    for(let k = i; k > 0; k--){
+                        if(!CheckIfNodeIsSnake(nm, {x: j, y: k})){
+                            clearanceBottom++;
+                        } else {
+                            break;
+                        }
+                    }
                 } else {
                     break;
                 }
@@ -153,6 +223,20 @@ export const CountOpenNodes = (gs: GameState, sb: SnakeBrain, nm: NodeMap) => {
             for (let j = head.x -1; j >=0; j--){
                 if(!CheckIfNodeIsSnake(nm, {x: j, y: i})){
                     clearanceBottom++;
+                    for(let k = i; k < gs.board.height; k++){
+                        if(!CheckIfNodeIsSnake(nm, {x: j, y: k})){
+                            clearanceBottom++;
+                        } else {
+                            break;
+                        }
+                    }
+                    for(let k = i; k > 0; k--){
+                        if(!CheckIfNodeIsSnake(nm, {x: j, y: k})){
+                            clearanceBottom++;
+                        } else {
+                            break;
+                        }
+                    }
                 } else {
                     break;
                 }
@@ -168,6 +252,20 @@ export const CountOpenNodes = (gs: GameState, sb: SnakeBrain, nm: NodeMap) => {
             for (let j = head.x; j < gs.board.width; j++){
                 if(!CheckIfNodeIsSnake(nm, {x: j, y: i})){
                     clearanceTop++;
+                    for(let k = i; k < gs.board.height; k++){
+                        if(!CheckIfNodeIsSnake(nm, {x: j, y: k})){
+                            clearanceTop++;
+                        } else {
+                            break;
+                        }
+                    }
+                    for(let k = i; k > 0; k--){
+                        if(!CheckIfNodeIsSnake(nm, {x: j, y: k})){
+                            clearanceTop++;
+                        } else {
+                            break;
+                        }
+                    }
                 } else {
                     break;
                 }
@@ -175,6 +273,20 @@ export const CountOpenNodes = (gs: GameState, sb: SnakeBrain, nm: NodeMap) => {
             for (let j = head.x -1; j >=0; j--){
                 if(!CheckIfNodeIsSnake(nm, {x: j, y: i})){
                     clearanceTop++;
+                    for(let k = i; k < gs.board.height; k++){
+                        if(!CheckIfNodeIsSnake(nm, {x: j, y: k})){
+                            clearanceTop++;
+                        } else {
+                            break;
+                        }
+                    }
+                    for(let k = i; k > 0; k--){
+                        if(!CheckIfNodeIsSnake(nm, {x: j, y: k})){
+                            clearanceTop++;
+                        } else {
+                            break;
+                        }
+                    }
                 } else {
                     break;
                 }
@@ -236,4 +348,50 @@ export const CountOpenNodes = (gs: GameState, sb: SnakeBrain, nm: NodeMap) => {
     sb.scoredMoves.right.score += clearanceRight;
     sb.scoredMoves.down.score += clearanceBottom;
     sb.scoredMoves.up.score += clearanceTop;
+}
+
+export const RecursiveFlood = (sb: SnakeBrain, nm: NodeMap, clearance: Clearance) => {
+    const head = sb.snake.body[0];
+
+    // while the left direction is clear..
+    // walk as far as possible left
+    let boundaryCoord = {x: head.x - clearance.left, y: head.y}
+    while(ReturnNextCoord({x: head.x - clearance.left, y: head.y}, "left").x < 0 && !CheckIfNodeIsSnake(nm, ReturnNextCoord({x: head.x - clearance.left, y: head.y}, "left"))){
+        clearance.left++;
+        boundaryCoord = {x: head.x - clearance.left, y: head.y}
+    }
+
+    // once you find the boundary, move up one / down one and walk back right
+    let i = 1;
+    while(ReturnNextCoord({x:boundaryCoord.x, y: boundaryCoord.y +1}, "right")){
+        if(!CheckIfNodeIsSnake(nm, ReturnNextCoord({x: boundaryCoord.x, y: boundaryCoord.y + 1}, "right"))){
+            clearance.left++;
+            boundaryCoord = {x: boundaryCoord.x - i, y: boundaryCoord.y}
+            i++;
+        }
+    }
+    while(ReturnNextCoord({x:boundaryCoord.x, y: boundaryCoord.y +-1}, "right")){
+        if(!CheckIfNodeIsSnake(nm, ReturnNextCoord({x: boundaryCoord.x, y: boundaryCoord.y + 1}, "right"))){
+            clearance.left++;
+            boundaryCoord = {x: boundaryCoord.x - i, y: boundaryCoord.y}
+            i++;
+        }
+    }
+
+}
+
+export const ReturnNextCoord = (start: Coord, direction: string): Coord => {
+    
+    switch(direction){
+        case "left":
+            return {x: start.x - 1, y: start.y}
+        case "right":
+            return {x: start.x + 1, y: start.y}
+        case "up":
+            return {x: start.x, y: start.y + 1}
+        case "down":
+            return {x: start.x, y: start.y -1}
+        default:
+            return start;
+    }
 }
