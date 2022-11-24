@@ -69,6 +69,7 @@ function move(gameState: GameState): MoveResponse {
   me.AvoidOwnBody();
   me.PreferTowardClosestFood(gameState);
   me.PreferTowardOwnTail(gameState);
+  me.PreferAwayFromLargerSnakeHead(gameState);
 
   CountOpenNodes(gameState, me, nm);
   console.log(me.scoredMoves);

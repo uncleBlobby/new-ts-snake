@@ -154,7 +154,7 @@ export class SnakeBrain {
     PreferTowardClosestFood = (gs: GameState) => {
         const closestFoodCoord = this.GetClosestFoodCoord(gs);
         const head = this.head();
-        const healthRatio = 100 - this.snake.health;
+        const healthRatio = (100 - this.snake.health) * 3 ;
 
         switch(this.GetGeneralDirectionToCoord(closestFoodCoord)){
             case "right":
@@ -198,6 +198,73 @@ export class SnakeBrain {
                 break;
               default:
                 break;
+        }
+        if (health > 75){
+          switch(directionToTail){
+              case "right":
+                this.scoredMoves.right.score += tailPrefValue *2;
+                break;
+              case "left":
+                this.scoredMoves.left.score += tailPrefValue *2;
+                break;
+              case "up":
+                this.scoredMoves.up.score += tailPrefValue *2;
+                break;
+              case "down":
+                this.scoredMoves.down.score += tailPrefValue *2;
+                break;
+              default:
+                break;
+          }
+        }
+    }
+
+    PreferAwayFromLargerSnakeHead = (gs: GameState) => {
+      const opponents = gs.board.snakes;
+      const head = this.snake.body[0];
+
+      for (let i = 0; i < opponents.length; i++){
+        if (opponents[i].id != this.snake.id){
+            let enemy = opponents[i];
+            if (enemy.body.length >= this.snake.body.length){
+                if (head.x + 2 == enemy.head.x && head.y == enemy.head.y){
+                  this.scoredMoves.right.score -= 1550;
+                }
+          
+                if (head.x - 2 == enemy.head.x && head.y == enemy.head.y){
+                  this.scoredMoves.left.score -= 1550;
+                }
+          
+                if (head.x == enemy.head.x && head.y + 2 == enemy.head.y){
+                  this.scoredMoves.up.score -= 1550;
+                }
+          
+                if (head.x == enemy.head.x && head.y -2 == enemy.head.y){
+                  this.scoredMoves.down.score -= 1550;
+                }
+        
+                if (head.x == enemy.head.x + 1 && head.y == enemy.head.y - 1){
+                  this.scoredMoves.up.score -= 1550;
+                  this.scoredMoves.left.score -= 1550;
+                }
+        
+                if (head.x == enemy.head.x - 1 && head.y == enemy.head.y - 1){
+                  this.scoredMoves.up.score -= 1550;
+                  this.scoredMoves.right.score -= 1550;
+                }
+        
+                if (head.x == enemy.head.x + 1 && head.y == enemy.head.y + 1){
+                  this.scoredMoves.down.score -= 1550;
+                  this.scoredMoves.left.score -= 1550;
+                }
+        
+                if (head.x == enemy.head.x - 1 && head.y == enemy.head.y + 1){
+                  this.scoredMoves.down.score -= 1550;
+                  this.scoredMoves.right.score -= 1550;
+                }
+        
+            }
+          }
         }
     }
 }
