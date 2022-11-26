@@ -82,10 +82,16 @@ function move(gameState: GameState): MoveResponse {
   return { move: nextMove };
 }
 
+function dataDisplay(gameState: GameState): void {
+  console.log(`req.body: ${JSON.stringify(gameState)}`)
+  console.log(`got req on data display url`)
+}
+
 runServer({
   info: info,
   start: start,
   move: move,
-  end: end
+  end: end,
+  dataDisplay: dataDisplay
 });
 
